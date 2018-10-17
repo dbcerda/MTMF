@@ -93,7 +93,6 @@ class Fita {
        String retorno = "";
         for (int i = 0; i < conteudo.size(); i++) {
           retorno = retorno + conteudo.get(i);
-
        }
        return retorno;
        

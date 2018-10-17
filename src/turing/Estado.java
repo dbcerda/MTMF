@@ -8,8 +8,8 @@ class Estado {
 
 
    Estado(String nome_) {
-      nome = nome_;
       estadoFinal = nome_.contains("f");
+      nome = nome_.replaceAll("f", "");      
       funcoes = new Transicao[numTrans];
       for (int i = 0; i < numTrans; i++) {
          funcoes[i] = null;
@@ -32,7 +32,7 @@ class Estado {
          
          if(funcoes[i] == null)
          {
-
+            //System.out.println("Transicao adicionada eh: " + transicao_.le + " " + transicao_.novoEstado + " " + transicao_.escreve + " " + transicao_.move);
             funcoes[i] = transicao_;
             break;
          }

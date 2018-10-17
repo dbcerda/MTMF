@@ -85,6 +85,7 @@ public class Maquina {
       for(int i = 0; i < registrador.length; i++) {
          if(registrador[i] == null)
          {
+            //System.out.println("Estado adicionado foi: " + estado.nome);
             registrador[i] = estado;
             break;
          }
@@ -107,7 +108,7 @@ public class Maquina {
       }                  
       
       String nomeEstado = "";
-      String novoEstado = "";
+      String nomeNovoEstado = "";
       String move = "";
       String escreve = "";
       String le = "";
@@ -121,7 +122,7 @@ public class Maquina {
             for(j = 1; j < elementos.length -1; j++) {
                le+= elementos[j];
             }
-            novoEstado = elementos[j];
+            nomeNovoEstado = elementos[j];
          }
          else {
             escreve += elementos[0];
@@ -130,7 +131,7 @@ public class Maquina {
          
       }
       
-      Transicao transicao = new Transicao(le, novoEstado, escreve, move);
+      Transicao transicao = new Transicao(le, nomeNovoEstado, escreve, move);      
       
       //se existe o estado, adiciona a transicao, se por algum motivo nao, cria o estado
       if(contemEstado(nomeEstado)) {                 
@@ -142,7 +143,11 @@ public class Maquina {
          Estado estado = new Estado(nomeEstado);
          estado.adicionaTransicao(transicao);
          adicionaEstado(estado);         
-      }      
+      }
+      if(!contemEstado(nomeNovoEstado)) {
+         Estado novoEstado = new Estado(nomeNovoEstado);         
+         adicionaEstado(novoEstado);
+      }
 
    }
    
@@ -186,7 +191,7 @@ public class Maquina {
        
       //System.out.println("O valor lido foi " + le);
       Estado estado = getEstado(estadoAtual);
-      //System.out.println("O nome do estado e " + estado.nome);
+      //System.out.println("O nome do estado e " + ((estado == null) ? "nulo" : estado.nome) );
       Transicao transicao = estado.getTransicao(le);
       if(transicao == null)
       {
@@ -212,10 +217,9 @@ public class Maquina {
             //System.out.println("escreve: " + escreve_[i] + " e move: " + move_[i]);
             fita[i].escreveNaFita( new String(escreve_[i] + ""));
             fita[i].movimento( new String(move_[i]+ ""));
-         }                    
          estadoAtual = transicao.novoEstado;
          //System.out.println("O novo estado e " + transicao.novoEstado);
-
+         }                             
       }
       
     }
